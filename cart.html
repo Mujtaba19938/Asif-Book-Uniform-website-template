@@ -38,6 +38,84 @@
     <link rel="stylesheet" href="assets/css/red.css">
     <link rel="stylesheet" href="assets/css/compare.css">
     <link rel="stylesheet" href="assets/css/wpforms-full.min.css">
+<!-- Mobile Responsiveness & Navigation Styles -->
+    <style>
+        /* Mobile Search Bar & Header */
+        @media (max-width: 575.98px) {
+            .site-search input.min-width-380,
+            .bookworm-search-input.min-width-380 {
+                min-width: 0 !important;
+                width: 100% !important;
+            }
+            .site-search .input-group {
+                width: 100% !important;
+            }
+            .site-search {
+                width: 100% !important;
+                margin-top: 8px !important;
+            }
+            .site-branding img {
+                height: 40px !important;
+            }
+            .masthead {
+                padding-top: 8px !important;
+                padding-bottom: 8px !important;
+            }
+            .hero__title.font-size-14 {
+                font-size: 1.75rem !important;
+                line-height: 1.25 !important;
+            }
+            .hero.min-height-588 {
+                min-height: auto !important;
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+        }
+        
+        /* Mobile Drawer / Offcanvas Styling */
+        #offcanvasNav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            bottom: 0 !important;
+            width: 320px !important;
+            max-width: 85vw !important;
+            height: 100% !important;
+            background: #fff !important;
+            z-index: 1050 !important;
+            box-shadow: 4px 0 25px rgba(0,0,0,0.15) !important;
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.3s;
+        }
+        #offcanvasNav.u-unfold--hidden {
+            display: none !important;
+            transform: translateX(-100%) !important;
+            visibility: hidden !important;
+        }
+        #offcanvasNav.is-open {
+            display: block !important;
+            transform: translateX(0) !important;
+            visibility: visible !important;
+        }
+        .u-sidebar-bg-overlay.is-open {
+            display: block !important;
+            opacity: 1 !important;
+        }
+        .mobile-menu-list .nav-link {
+            transition: background 0.15s ease;
+        }
+        .mobile-menu-list .nav-link:hover,
+        .mobile-menu-list .nav-link:focus {
+            background-color: #f8f9fa;
+        }
+        .mobile-menu-list [data-toggle="collapse"] i {
+            transition: transform 0.2s ease;
+        }
+        .mobile-menu-list [data-toggle="collapse"][aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+    </style>
 </head>
 <body class="archive post-type-archive post-type-archive-product wp-theme-bookworm theme-bookworm woocommerce-shop woocommerce woocommerce-page woocommerce-no-js woocommerce-active left-sidebar">
     <div id="page" class="hfeed site">
@@ -165,6 +243,125 @@
                 </div>                </div>
             </div>
         </div></header>
+<aside id="offcanvasNav" class="u-sidebar u-sidebar__md u-sidebar--left u-unfold--css-animation u-unfold--hidden" aria-labelledby="offcanvasNavToggler">
+        <div class="u-sidebar__scroller" style="height: 100%; overflow-y: auto;">
+            <div class="u-sidebar__container">
+                <header class="border-bottom px-4 py-3 d-flex align-items-center justify-content-between bg-light">
+                    <div class="d-flex align-items-center">
+                        <img src="assets/img/logo.png" alt="Asif Book & Uniform" style="height: 38px; width: auto; object-fit: contain;">
+                    </div>
+                    <button type="button" class="close text-dark p-2" id="closeOffcanvasBtn" aria-label="Close Mobile Menu" style="cursor: pointer;">
+                        <span aria-hidden="true" class="font-size-5">&times;</span>
+                    </button>
+                </header>
+
+                <div class="mobile-nav-body py-3 px-3">
+                    <ul class="nav flex-column mobile-menu-list">
+                        <!-- Home -->
+                        <li class="nav-item border-bottom">
+                            <a href="index.html" class="nav-link py-3 font-weight-medium text-dark d-flex align-items-center">
+                                <i class="fas fa-home mr-3 text-primary font-size-3" style="width: 20px;"></i> Home
+                            </a>
+                        </li>
+
+                        <!-- Syllabus Books Accordion -->
+                        <li class="nav-item border-bottom">
+                            <div class="d-flex align-items-center justify-content-between py-2">
+                                <a href="syllabus-books.html" class="nav-link p-0 font-weight-medium text-dark d-flex align-items-center flex-grow-1">
+                                    <i class="fas fa-book mr-3 text-primary font-size-3" style="width: 20px;"></i> Syllabus Books
+                                </a>
+                                <button type="button" class="btn btn-sm btn-link text-dark p-2" data-toggle="collapse" data-target="#sub-syllabus-mobile" aria-expanded="false" aria-label="Toggle Syllabus Submenu">
+                                    <i class="fas fa-chevron-down font-size-1"></i>
+                                </button>
+                            </div>
+                            <div class="collapse pl-4 pb-2" id="sub-syllabus-mobile">
+                                <ul class="nav flex-column font-size-2">
+                                    <li class="nav-item"><a href="syllabus-books.html" class="nav-link py-2 text-primary font-weight-bold">View All Syllabus Books &rarr;</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?class=Playgroup%20%26%20Nursery" class="nav-link py-2 text-gray-700">Playgroup &amp; Nursery</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?class=Kindergarten" class="nav-link py-2 text-gray-700">Kindergarten</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?class=Class%201%E2%80%935" class="nav-link py-2 text-gray-700">Class 1–5 (Primary)</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?class=Class%206%E2%80%938" class="nav-link py-2 text-gray-700">Class 6–8 (Middle)</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?class=Class%209%E2%80%9310" class="nav-link py-2 text-gray-700">Class 9–10 (Matric)</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?class=Class%2011%E2%80%9312" class="nav-link py-2 text-gray-700">Class 11–12 (Inter / FSc)</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?curriculum=Cambridge%20O-Level" class="nav-link py-2 text-gray-700">Cambridge O-Level</a></li>
+                                    <li class="nav-item"><a href="syllabus-books.html?curriculum=Cambridge%20A-Level" class="nav-link py-2 text-gray-700">Cambridge A-Level</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- School Uniforms Accordion -->
+                        <li class="nav-item border-bottom">
+                            <div class="d-flex align-items-center justify-content-between py-2">
+                                <a href="school-uniforms.html" class="nav-link p-0 font-weight-medium text-dark d-flex align-items-center flex-grow-1">
+                                    <i class="fas fa-tshirt mr-3 text-primary font-size-3" style="width: 20px;"></i> School Uniforms
+                                </a>
+                                <button type="button" class="btn btn-sm btn-link text-dark p-2" data-toggle="collapse" data-target="#sub-uniforms-mobile" aria-expanded="false" aria-label="Toggle Uniforms Submenu">
+                                    <i class="fas fa-chevron-down font-size-1"></i>
+                                </button>
+                            </div>
+                            <div class="collapse pl-4 pb-2" id="sub-uniforms-mobile">
+                                <ul class="nav flex-column font-size-2">
+                                    <li class="nav-item"><a href="school-uniforms.html" class="nav-link py-2 text-primary font-weight-bold">View All School Uniforms &rarr;</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?gender=Boys" class="nav-link py-2 text-gray-700">Boys' Uniforms</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?gender=Girls" class="nav-link py-2 text-gray-700">Girls' Uniforms</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?type=Shirts%20%26%20Trousers" class="nav-link py-2 text-gray-700">Shirts &amp; Trousers</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?type=Shalwar%20Kameez" class="nav-link py-2 text-gray-700">Shalwar Kameez</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?type=Sweaters%20%26%20Blazers" class="nav-link py-2 text-gray-700">Sweaters &amp; Blazers</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?type=Shoes%20%26%20Socks" class="nav-link py-2 text-gray-700">Shoes &amp; Socks</a></li>
+                                    <li class="nav-item"><a href="school-uniforms.html?type=Accessories" class="nav-link py-2 text-gray-700">Ties, Belts &amp; Badges</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Stationery Accordion -->
+                        <li class="nav-item border-bottom">
+                            <div class="d-flex align-items-center justify-content-between py-2">
+                                <a href="stationery.html" class="nav-link p-0 font-weight-medium text-dark d-flex align-items-center flex-grow-1">
+                                    <i class="fas fa-pencil-alt mr-3 text-primary font-size-3" style="width: 20px;"></i> Stationery
+                                </a>
+                                <button type="button" class="btn btn-sm btn-link text-dark p-2" data-toggle="collapse" data-target="#sub-stationery-mobile" aria-expanded="false" aria-label="Toggle Stationery Submenu">
+                                    <i class="fas fa-chevron-down font-size-1"></i>
+                                </button>
+                            </div>
+                            <div class="collapse pl-4 pb-2" id="sub-stationery-mobile">
+                                <ul class="nav flex-column font-size-2">
+                                    <li class="nav-item"><a href="stationery.html" class="nav-link py-2 text-primary font-weight-bold">View All Stationery &rarr;</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=Notebooks%20%26%20Registers" class="nav-link py-2 text-gray-700">Notebooks &amp; Registers</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=Pens%20%26%20Pencils" class="nav-link py-2 text-gray-700">Pens &amp; Pencils</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=Geometry%20Boxes" class="nav-link py-2 text-gray-700">Geometry Boxes</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=Art%20Supplies" class="nav-link py-2 text-gray-700">Art Supplies</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=School%20Bags" class="nav-link py-2 text-gray-700">School Bags</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=Files%20%26%20Folders" class="nav-link py-2 text-gray-700">Files &amp; Folders</a></li>
+                                    <li class="nav-item"><a href="stationery.html?category=Office%20Supplies" class="nav-link py-2 text-gray-700">Office Supplies</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Cart & Checkout -->
+                        <li class="nav-item border-bottom">
+                            <a href="cart.html" class="nav-link py-3 font-weight-medium text-dark d-flex align-items-center justify-content-between">
+                                <span class="d-flex align-items-center">
+                                    <i class="flaticon-icon-126515 mr-3 text-primary font-size-3" style="width: 20px;"></i> My Cart &amp; Checkout
+                                </span>
+                                <span class="badge badge-dark badge-pill px-2 py-1 cart-contents-count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Mobile Contact Info Card -->
+                    <div class="mt-4 p-3 bg-light rounded font-size-2">
+                        <div class="font-weight-bold text-dark mb-1">Asif Book &amp; Uniform</div>
+                        <div class="text-gray-700 mb-1"><i class="fas fa-truck mr-2 text-primary"></i> Nationwide Delivery in 2–4 Days</div>
+                        <div class="text-gray-700 mb-2"><i class="fas fa-phone mr-2 text-primary"></i> +92 300 1234567</div>
+                        <a href="cart.html" class="btn btn-primary btn-sm btn-block text-white font-weight-medium py-2">
+                            <i class="fas fa-shopping-bag mr-2"></i> View Cart &amp; Checkout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
     <!-- ========================= BREADCRUMB ========================= -->
     <div class="page-header border-bottom bg-light py-4 mb-5">
         <div class="container-fluid px-3 px-md-5 px-xl-8d75">
@@ -554,7 +751,7 @@
 
     <!-- Initialization Script -->
     <script>
-        $(document).on('ready', function () {
+        $(document).ready(function () {
             // initialization of unfold component
             if ($.HSCore && $.HSCore.components && $.HSCore.components.HSUnfold) {
                 $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
@@ -915,6 +1112,59 @@
             if (e.key === 'bookworm_cart') {
                 renderCartPage();
             }
+        });
+    </script>
+<!-- Mobile Burger Navigation Script -->
+    <script>
+        $(document).ready(function() {
+            var $offcanvas = $('#offcanvasNav');
+            var $backdrop = $('#mobile-nav-backdrop');
+
+            if (!$backdrop.length) {
+                $('body').append('<div id="mobile-nav-backdrop" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1040; display:none; transition:opacity 0.25s ease;"></div>');
+                $backdrop = $('#mobile-nav-backdrop');
+            }
+
+            function openMobileMenu() {
+                $backdrop.css('display', 'block').hide().fadeIn(200);
+                $offcanvas.removeClass('u-unfold--hidden').addClass('is-open');
+                $('body').css('overflow', 'hidden');
+            }
+
+            function closeMobileMenu() {
+                $backdrop.fadeOut(200);
+                $offcanvas.removeClass('is-open').addClass('u-unfold--hidden');
+                $('body').css('overflow', '');
+            }
+
+            // Click on burger toggler
+            $(document).on('click', '#offcanvasNavToggler, .cat-menu', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($offcanvas.hasClass('is-open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            // Click on close button inside menu
+            $(document).on('click', '#closeOffcanvasBtn, #offcanvasNav .close', function(e) {
+                e.preventDefault();
+                closeMobileMenu();
+            });
+
+            // Click on backdrop to close
+            $backdrop.on('click', function() {
+                closeMobileMenu();
+            });
+
+            // Close on ESC key
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape' && $offcanvas.hasClass('is-open')) {
+                    closeMobileMenu();
+                }
+            });
         });
     </script>
 </body>
