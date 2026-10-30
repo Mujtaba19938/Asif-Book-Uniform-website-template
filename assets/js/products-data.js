@@ -2435,7 +2435,14 @@ var BOOKWORM_CART = {
         try {
             var saved = localStorage.getItem('bookworm_cart');
             if (saved) {
-                this.items = JSON.parse(saved);
+                var parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) {
+                    this.items = parsed;
+                } else {
+                    this.items = [];
+                }
+            } else {
+                this.items = [];
             }
         } catch(e) {
             this.items = [];
@@ -2448,46 +2455,79 @@ var BOOKWORM_CART = {
         } catch(e) {}
         this.renderMiniCart();
     },
-    addItem: function(productId, quantity, options) {
-        quantity = parseInt(quantity) || 1;
-        var product = BOOKWORM_PRODUCTS.find(function(p) { return p.id === productId; });
-        if (!product) return;
+    addItem: function(productOrId, quantity, options) {
+        quantity = Math.max(1, parseInt(quantity) || 1);
+        options = options || {};
         
-        var key = productId;
+        var product = null;
+        if (typeof productOrId === 'object' && productOrId !== null) {
+            product = productOrId;
+        } else if (typeof productOrId === 'string' || typeof productOrId === 'number') {
+            var strId = String(productOrId);
+            product = BOOKWORM_PRODUCTS.find(function(p) { return p.id === strId; });
+            
+            // If not found in catalog, allow custom product from options or fallback
+            if (!product && options.title) {
+                product = {
+                    id: strId,
+                    title: options.title,
+                    price: options.price || 500,
+                    image: options.image || 'assets/img/products/books/broadway-primer-a.png'
+                };
+            }
+        }
+        
+        if (!product) {
+            console.warn('Product not found for ID:', productOrId);
+            return false;
+        }
+
+        var pId = String(product.id || ('prod-' + Date.now()));
+        var pTitle = String(product.title || 'Product');
+        var pPrice = (typeof product.price === 'number') ? product.price : (parseFloat(String(product.price).replace(/[^0-9.]/g, '')) || 0);
+        var pImage = String(product.image || 'assets/img/products/books/broadway-primer-a.png');
+
+        var key = pId;
         if (options && (options.size || options.color)) {
             key += '-' + (options.size || '') + '-' + (options.color || '');
         }
 
         var existing = this.items.find(function(i) { return i.key === key; });
         if (existing) {
-            existing.quantity += quantity;
+            existing.quantity = (parseInt(existing.quantity) || 0) + quantity;
         } else {
             this.items.push({
                 key: key,
-                id: product.id,
-                title: product.title,
-                price: product.price,
-                image: product.image,
+                id: pId,
+                title: pTitle,
+                price: pPrice,
+                image: pImage,
                 quantity: quantity,
-                size: options ? options.size : null,
-                color: options ? options.color : null
+                size: options.size || null,
+                color: options.color || null
             });
         }
+
         this.save();
-        this.showAddedNotification(product.title);
+        this.showAddedNotification(pTitle);
+        return true;
     },
     removeItem: function(key) {
         this.items = this.items.filter(function(i) { return i.key !== key; });
         this.save();
     },
     getTotalCount: function() {
-        return this.items.reduce(function(sum, i) { return sum + i.quantity; }, 0);
+        return (this.items || []).reduce(function(sum, i) { return sum + (parseInt(i.quantity) || 1); }, 0);
     },
     getCount: function() {
         return this.getTotalCount();
     },
     getSubtotal: function() {
-        return this.items.reduce(function(sum, i) { return sum + (i.price * i.quantity); }, 0);
+        return (this.items || []).reduce(function(sum, i) {
+            var pr = (typeof i.price === 'number') ? i.price : (parseFloat(String(i.price).replace(/[^0-9.]/g, '')) || 0);
+            var q = parseInt(i.quantity) || 1;
+            return sum + (pr * q);
+        }, 0);
     },
     renderMiniCart: function() {
         var count = this.getTotalCount();
@@ -2497,30 +2537,33 @@ var BOOKWORM_CART = {
         var $subtotal = $('#offcanvasCart .woocommerce-Price-amount bdi, #offcanvasCart .mini-cart-subtotal');
         
         if ($cartList.length) {
-            if (this.items.length === 0) {
+            if (!this.items || this.items.length === 0) {
                 $cartList.html('<li class="woocommerce-mini-cart__empty-message empty py-5 text-center font-size-2 text-gray-700">No products in the cart.</li>');
                 $('#offcanvasCart .woocommerce-mini-cart__total, #offcanvasCart .woocommerce-mini-cart__buttons').hide();
             } else {
                 $('#offcanvasCart .woocommerce-mini-cart__total, #offcanvasCart .woocommerce-mini-cart__buttons').show();
                 var html = '';
+                var that = this;
                 this.items.forEach(function(item) {
                     var details = '';
                     if (item.size) details += ' <small class="text-gray-700">(' + item.size + ')</small>';
+                    var pr = (typeof item.price === 'number') ? item.price : (parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0);
+                    var prodUrl = (item.id && String(item.id).indexOf('custom-') === -1) ? ('product-detail.html?id=' + encodeURIComponent(item.id)) : '#';
                     html += '<li class="woocommerce-mini-cart-item mini_cart_item d-flex align-items-center py-3 border-bottom position-relative">' +
                         '<a href="javascript:void(0);" onclick="BOOKWORM_CART.removeItem(\'' + item.key + '\')" class="remove remove_from_cart_button text-danger mr-3 font-size-3" aria-label="Remove this item">&times;</a>' +
-                        '<a href="product-detail.html?id=' + item.id + '" class="mr-3 flex-shrink-0">' +
+                        '<a href="' + prodUrl + '" class="mr-3 flex-shrink-0">' +
                             '<img width="60" height="85" src="' + item.image + '" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" style="object-fit:cover; border-radius:2px;" alt="' + item.title + '">' +
                         '</a>' +
                         '<div class="mini-cart-item__info overflow-hidden pr-2">' +
-                            '<h6 class="font-size-2 mb-1 text-truncate"><a href="product-detail.html?id=' + item.id + '" class="text-dark">' + item.title + '</a></h6>' +
+                            '<h6 class="font-size-2 mb-1 text-truncate"><a href="' + prodUrl + '" class="text-dark">' + item.title + '</a></h6>' +
                             (details ? '<div class="font-size-1 mb-1">' + details + '</div>' : '') +
-                            '<span class="quantity font-size-2 text-gray-700">' + item.quantity + ' &times; <span class="font-weight-medium text-dark">Rs. ' + item.price.toLocaleString() + '</span></span>' +
+                            '<span class="quantity font-size-2 text-gray-700">' + item.quantity + ' &times; <span class="font-weight-medium text-dark">Rs. ' + Math.round(pr).toLocaleString() + '</span></span>' +
                         '</div>' +
                     '</li>';
                 });
                 $cartList.html(html);
                 if ($subtotal.length) {
-                    $subtotal.html('<span class="woocommerce-Price-currencySymbol">Rs.</span> ' + this.getSubtotal().toLocaleString());
+                    $subtotal.html('<span class="woocommerce-Price-currencySymbol">Rs.</span> ' + Math.round(this.getSubtotal()).toLocaleString());
                 }
             }
         }
@@ -2529,7 +2572,7 @@ var BOOKWORM_CART = {
         var $toast = $('#cart-toast-notification');
         if (!$toast.length) {
             $('body').append(
-                '<div id="cart-toast-notification" class="position-fixed shadow-lg bg-dark text-white p-3 rounded" style="top: 25px; right: 25px; z-index: 999999; max-width: 380px; display: none !important;">' +
+                '<div id="cart-toast-notification" class="position-fixed shadow-lg bg-dark text-white p-3 rounded" style="top: 25px; right: 25px; z-index: 999999; max-width: 380px; display: none;">' +
                     '<div class="d-flex align-items-center">' +
                         '<i class="fas fa-check-circle text-success font-size-4 mr-3"></i>' +
                         '<div class="flex-grow-1 pr-2 overflow-hidden">' +
@@ -2550,20 +2593,75 @@ var BOOKWORM_CART = {
     }
 };
 
-// Global event delegation for "Add to Cart"
-$(document).on('click', '.ajax_add_to_cart, .product_type_simple.add_to_cart_button', function(e) {
+// Immediately initialize synchronously on script load
+BOOKWORM_CART.init();
+
+// Universal Global event delegation for "Add to Cart"
+$(document).on('click', '.ajax_add_to_cart, .add_to_cart_button, #btn-add-to-cart-detail, [data-add-to-cart], a[href*="add-to-cart"]', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     var $btn = $(this);
+
+    // If on product-detail page and it's the detail button
+    if ($btn.attr('id') === 'btn-add-to-cart-detail') {
+        var dQty = parseInt($('#detail-quantity').val()) || 1;
+        var pId = (new URLSearchParams(window.location.search)).get('id') || 'sb-1';
+        var size = $('.btn-size-opt.btn-primary').data('size') || null;
+        var color = $('.btn-color-opt.btn-dark').data('color') || null;
+        BOOKWORM_CART.addItem(pId, dQty, { size: size, color: color });
+        return false;
+    }
+
     var pId = $btn.data('product_id') || $btn.attr('data-product_id');
-    if (pId && (String(pId).startsWith('sb-') || String(pId).startsWith('su-') || String(pId).startsWith('st-'))) {
-        e.preventDefault();
-        e.stopPropagation();
-        var qty = $btn.data('quantity') || 1;
+    var qty = parseInt($btn.data('quantity')) || 1;
+
+    // Check if ID exists in catalog
+    if (pId && BOOKWORM_PRODUCTS.some(function(p) { return p.id === String(pId); })) {
         BOOKWORM_CART.addItem(String(pId), qty);
         return false;
     }
+
+    // Otherwise, extract product metadata directly from the card DOM
+    var $card = $btn.closest('.product, .product__card, .product__inner, .js-slide, li, .card');
+    var title = '';
+    var price = 500;
+    var image = 'assets/img/products/books/broadway-primer-a.png';
+
+    if ($card.length) {
+        var $titleEl = $card.find('.product__title a, .woocommerce-loop-product__title a, .product__title, .woocommerce-loop-product__title, h2 a, h3 a, h6 a').first();
+        if ($titleEl.length) title = $titleEl.text().trim();
+
+        var $priceEl = $card.find('.price ins .woocommerce-Price-amount, .price .woocommerce-Price-amount, .amount').first();
+        if ($priceEl.length) {
+            var rawPrice = $priceEl.text().replace(/[^0-9.]/g, '');
+            if (rawPrice) {
+                var parsedPrice = parseFloat(rawPrice);
+                price = (parsedPrice < 50) ? Math.round(parsedPrice * 280) : Math.round(parsedPrice);
+            }
+        }
+
+        var $imgEl = $card.find('img').first();
+        if ($imgEl.length && $imgEl.attr('src')) {
+            image = $imgEl.attr('src');
+        }
+    }
+
+    if (!title) {
+        var aria = $btn.attr('aria-label') || '';
+        title = aria.replace(/^Add to cart:\s*["“]?/i, '').replace(/["”]?\s*$/i, '').trim() || 'Educational Product';
+    }
+
+    BOOKWORM_CART.addItem(pId || ('item-' + Date.now()), qty, {
+        title: title,
+        price: price,
+        image: image
+    });
+
+    return false;
 });
 
-// Initialize on DOM ready
+// Re-sync on DOM ready and setup search
 $(document).ready(function() {
     BOOKWORM_CART.init();
     

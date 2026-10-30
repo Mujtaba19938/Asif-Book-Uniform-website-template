@@ -641,20 +641,46 @@
     <script>
         var appliedDiscount = 0;
 
-        function renderCartPage() {
-            if (typeof BOOKWORM_CART === 'undefined') {
-                console.error('BOOKWORM_CART not defined');
-                return;
+        function getCartItems() {
+            var items = [];
+            try {
+                var raw = localStorage.getItem('bookworm_cart');
+                if (raw) {
+                    var parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) {
+                        items = parsed;
+                    }
+                }
+            } catch(e) {
+                console.warn('Could not parse localStorage bookworm_cart:', e);
             }
-            var items = BOOKWORM_CART.items || [];
-            var totalCount = typeof BOOKWORM_CART.getTotalCount === 'function' ? BOOKWORM_CART.getTotalCount() : (BOOKWORM_CART.items || []).reduce(function(sum, i) { return sum + i.quantity; }, 0);
-            var subtotal = BOOKWORM_CART.getSubtotal();
+
+            if (items.length === 0 && typeof BOOKWORM_CART !== 'undefined' && Array.isArray(BOOKWORM_CART.items)) {
+                items = BOOKWORM_CART.items;
+            }
+
+            if (typeof BOOKWORM_CART !== 'undefined') {
+                BOOKWORM_CART.items = items;
+            }
+            return items;
+        }
+
+        function renderCartPage() {
+            if (typeof BOOKWORM_CART !== 'undefined' && typeof BOOKWORM_CART.init === 'function') {
+                BOOKWORM_CART.init();
+            }
+
+            var items = getCartItems();
+            var totalCount = items.reduce(function(sum, i) {
+                return sum + (parseInt(i.quantity) || 1);
+            }, 0);
 
             $('#cart-item-count-label').text(totalCount);
+            $('.cart-contents-count').text(totalCount);
 
             if (items.length === 0) {
                 $('#active-cart-view').hide();
-                $('#empty-cart-view').fadeIn();
+                $('#empty-cart-view').show();
                 return;
             }
 
@@ -663,38 +689,48 @@
 
             var tbodyHtml = '';
             items.forEach(function(item) {
-                var itemTotal = (item.price || 0) * (item.quantity || 1);
+                var safePrice = (typeof item.price === 'number') ? item.price : (parseFloat(String(item.price).replace(/[^0-9.]/g, '')) || 0);
+                var safeQty = Math.max(1, parseInt(item.quantity) || 1);
+                var itemTotal = safePrice * safeQty;
+
                 var metaHtml = '';
                 if (item.size) {
-                    metaHtml += '<span class="badge badge-light border text-dark font-size-1 mr-1">Size: ' + item.size + '</span>';
+                    metaHtml += '<span class="badge badge-light border text-dark font-size-1 mr-1">Size: ' + String(item.size).replace(/</g, '&lt;') + '</span>';
                 }
                 if (item.color) {
-                    metaHtml += '<span class="badge badge-light border text-dark font-size-1">Color: ' + item.color + '</span>';
+                    metaHtml += '<span class="badge badge-light border text-dark font-size-1">Color: ' + String(item.color).replace(/</g, '&lt;') + '</span>';
                 }
+
+                var safeKey = String(item.key).replace(/"/g, '&quot;');
+                var safeTitle = String(item.title || 'Product');
+                var safeImage = String(item.image || 'assets/img/products/books/broadway-primer-a.png');
+                var prodLink = (item.id && String(item.id).indexOf('custom-') === -1 && String(item.id).indexOf('item-') === -1) 
+                    ? ('product-detail.html?id=' + encodeURIComponent(item.id)) 
+                    : '#';
 
                 tbodyHtml += '<tr>' +
                     '<td class="px-4 py-3">' +
                         '<div class="d-flex align-items-center">' +
-                            '<a href="product-detail.html?id=' + item.id + '" class="d-block flex-shrink-0 mr-3 border rounded p-1 bg-white" style="width: 65px; height: 80px; display:flex; align-items:center; justify-content:center;">' +
-                                '<img src="' + item.image + '" alt="' + item.title + '" style="max-width:100%; max-height:100%; object-fit:contain;">' +
+                            '<a href="' + prodLink + '" class="d-block flex-shrink-0 mr-3 border rounded p-1 bg-white" style="width: 65px; height: 80px; display:flex; align-items:center; justify-content:center;">' +
+                                '<img src="' + safeImage + '" alt="' + safeTitle.replace(/"/g, '&quot;') + '" style="max-width:100%; max-height:100%; object-fit:contain;">' +
                             '</a>' +
                             '<div>' +
-                                '<a href="product-detail.html?id=' + item.id + '" class="text-dark font-weight-medium font-size-2 d-block line-clamp-2 mb-1">' + item.title + '</a>' +
+                                '<a href="' + prodLink + '" class="text-dark font-weight-medium font-size-2 d-block line-clamp-2 mb-1">' + safeTitle + '</a>' +
                                 (metaHtml ? '<div class="mt-1">' + metaHtml + '</div>' : '') +
                             '</div>' +
                         '</div>' +
                     '</td>' +
-                    '<td class="py-3 text-center font-weight-medium font-size-2">Rs. ' + item.price.toLocaleString() + '</td>' +
+                    '<td class="py-3 text-center font-weight-medium font-size-2">Rs. ' + Math.round(safePrice).toLocaleString() + '</td>' +
                     '<td class="py-3 text-center">' +
                         '<div class="cart-qty-stepper">' +
-                            '<button type="button" class="cart-qty-btn" onclick="updateCartItemQty(\'' + item.key + '\', -1)">−</button>' +
-                            '<input type="number" class="cart-qty-input" value="' + item.quantity + '" readonly>' +
-                            '<button type="button" class="cart-qty-btn" onclick="updateCartItemQty(\'' + item.key + '\', 1)">+</button>' +
+                            '<button type="button" class="cart-qty-btn" data-key="' + safeKey + '" onclick="updateCartItemQty(this.getAttribute(\'data-key\'), -1)">−</button>' +
+                            '<input type="number" class="cart-qty-input" value="' + safeQty + '" readonly>' +
+                            '<button type="button" class="cart-qty-btn" data-key="' + safeKey + '" onclick="updateCartItemQty(this.getAttribute(\'data-key\'), 1)">+</button>' +
                         '</div>' +
                     '</td>' +
-                    '<td class="py-3 text-right font-weight-bold font-size-2 text-primary">Rs. ' + itemTotal.toLocaleString() + '</td>' +
+                    '<td class="py-3 text-right font-weight-bold font-size-2 text-primary">Rs. ' + Math.round(itemTotal).toLocaleString() + '</td>' +
                     '<td class="px-4 py-3 text-center">' +
-                        '<button type="button" class="btn btn-sm btn-link text-danger p-0" title="Remove Item" onclick="removeCartItem(\'' + item.key + '\')">' +
+                        '<button type="button" class="btn btn-sm btn-link text-danger p-0" title="Remove Item" data-key="' + safeKey + '" onclick="removeCartItem(this.getAttribute(\'data-key\'))">' +
                             '<i class="fas fa-times font-size-3"></i>' +
                         '</button>' +
                     '</td>' +
@@ -706,54 +742,71 @@
         }
 
         function updateSummary() {
-            var subtotal = BOOKWORM_CART.getSubtotal();
-            var shipping = (subtotal >= 2000) ? 0 : 200;
+            var items = getCartItems();
+            var subtotal = items.reduce(function(sum, i) {
+                var pr = (typeof i.price === 'number') ? i.price : (parseFloat(String(i.price).replace(/[^0-9.]/g, '')) || 0);
+                var q = parseInt(i.quantity) || 1;
+                return sum + (pr * q);
+            }, 0);
+
+            var shipping = (subtotal >= 2000 || subtotal === 0) ? 0 : 200;
             var total = Math.max(0, subtotal + shipping - appliedDiscount);
 
-            $('#summary-subtotal').text('Rs. ' + subtotal.toLocaleString());
+            $('#summary-subtotal').text('Rs. ' + Math.round(subtotal).toLocaleString());
             if (shipping === 0) {
                 $('#summary-shipping').html('<span class="text-success font-weight-bold">FREE</span>');
                 $('#shipping-note').html('<i class="fas fa-check-circle text-success mr-1"></i> Qualified for FREE Delivery!');
             } else {
                 $('#summary-shipping').text('Rs. ' + shipping);
                 var needed = 2000 - subtotal;
-                $('#shipping-note').html('<i class="fas fa-info-circle mr-1"></i> Add Rs. ' + needed.toLocaleString() + ' more to get FREE delivery');
+                $('#shipping-note').html('<i class="fas fa-info-circle mr-1"></i> Add Rs. ' + Math.round(needed).toLocaleString() + ' more to get FREE delivery');
             }
 
             if (appliedDiscount > 0) {
-                $('#summary-discount-row').attr('style', 'display: flex !important;').find('#summary-discount').text('-Rs. ' + appliedDiscount.toLocaleString());
+                $('#summary-discount-row').attr('style', 'display: flex !important;').find('#summary-discount').text('-Rs. ' + Math.round(appliedDiscount).toLocaleString());
             } else {
                 $('#summary-discount-row').attr('style', 'display: none !important;');
             }
 
-            $('#summary-total').text('Rs. ' + total.toLocaleString());
+            $('#summary-total').text('Rs. ' + Math.round(total).toLocaleString());
         }
 
         function updateCartItemQty(key, delta) {
-            var item = BOOKWORM_CART.items.find(function(i) { return i.key === key; });
+            var items = getCartItems();
+            var item = items.find(function(i) { return String(i.key) === String(key); });
             if (!item) return;
-            var newQty = item.quantity + delta;
+            var newQty = (parseInt(item.quantity) || 1) + delta;
             if (newQty <= 0) {
                 removeCartItem(key);
             } else {
                 item.quantity = newQty;
-                BOOKWORM_CART.save();
+                saveItems(items);
                 renderCartPage();
             }
         }
 
         function removeCartItem(key) {
-            BOOKWORM_CART.removeItem(key);
+            var items = getCartItems().filter(function(i) { return String(i.key) !== String(key); });
+            saveItems(items);
             renderCartPage();
             showCartNotice('Item removed from cart.');
         }
 
         function clearCartConfirm() {
             if (confirm('Are you sure you want to clear your cart?')) {
-                BOOKWORM_CART.items = [];
-                BOOKWORM_CART.save();
+                saveItems([]);
                 renderCartPage();
                 showCartNotice('Cart has been cleared.');
+            }
+        }
+
+        function saveItems(items) {
+            try {
+                localStorage.setItem('bookworm_cart', JSON.stringify(items));
+            } catch(e) {}
+            if (typeof BOOKWORM_CART !== 'undefined') {
+                BOOKWORM_CART.items = items;
+                BOOKWORM_CART.renderMiniCart();
             }
         }
 
@@ -765,7 +818,11 @@
                 return;
             }
             if (code === 'WELCOME10' || code === 'ASIF10') {
-                var subtotal = BOOKWORM_CART.getSubtotal();
+                var items = getCartItems();
+                var subtotal = items.reduce(function(sum, i) {
+                    var pr = (typeof i.price === 'number') ? i.price : (parseFloat(String(i.price).replace(/[^0-9.]/g, '')) || 0);
+                    return sum + (pr * (parseInt(i.quantity) || 1));
+                }, 0);
                 appliedDiscount = Math.round(subtotal * 0.10);
                 updateSummary();
                 $msg.html('<span class="text-success font-weight-medium"><i class="fas fa-check mr-1"></i> Promo applied! 10% discount saved.</span>');
@@ -808,9 +865,12 @@
                 return;
             }
 
-            var items = BOOKWORM_CART.items.slice();
-            var subtotal = BOOKWORM_CART.getSubtotal();
-            var shipping = (subtotal >= 2000) ? 0 : 200;
+            var items = getCartItems();
+            var subtotal = items.reduce(function(sum, i) {
+                var pr = (typeof i.price === 'number') ? i.price : (parseFloat(String(i.price).replace(/[^0-9.]/g, '')) || 0);
+                return sum + (pr * (parseInt(i.quantity) || 1));
+            }, 0);
+            var shipping = (subtotal >= 2000 || subtotal === 0) ? 0 : 200;
             var total = Math.max(0, subtotal + shipping - appliedDiscount);
 
             // Generate Order ID
@@ -822,19 +882,20 @@
             $('#receipt-phone').text(phone);
             $('#receipt-address').text(address + ', ' + city);
             $('#receipt-payment').text(payment);
-            $('#receipt-total').text('Rs. ' + total.toLocaleString());
+            $('#receipt-total').text('Rs. ' + Math.round(total).toLocaleString());
 
             var receiptHtml = '';
             items.forEach(function(i) {
                 var meta = '';
                 if (i.size) meta += ' (Size: ' + i.size + ')';
-                receiptHtml += '<tr><td>' + i.title + meta + ' <span class="text-muted">× ' + i.quantity + '</span></td><td class="text-right font-weight-medium">Rs. ' + (i.price * i.quantity).toLocaleString() + '</td></tr>';
+                var pr = (typeof i.price === 'number') ? i.price : (parseFloat(String(i.price).replace(/[^0-9.]/g, '')) || 0);
+                var q = parseInt(i.quantity) || 1;
+                receiptHtml += '<tr><td>' + i.title + meta + ' <span class="text-muted">× ' + q + '</span></td><td class="text-right font-weight-medium">Rs. ' + Math.round(pr * q).toLocaleString() + '</td></tr>';
             });
             $('#receipt-items-tbody').html(receiptHtml);
 
             // Clear Cart in memory & storage
-            BOOKWORM_CART.items = [];
-            BOOKWORM_CART.save();
+            saveItems([]);
 
             // Switch to success view
             $('#active-cart-view').hide();
@@ -843,8 +904,17 @@
             $('html, body').animate({ scrollTop: 0 }, 400);
         }
 
+        // Render immediately and on events
         $(document).ready(function() {
             renderCartPage();
+        });
+        window.addEventListener('pageshow', function() {
+            renderCartPage();
+        });
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'bookworm_cart') {
+                renderCartPage();
+            }
         });
     </script>
 </body>
