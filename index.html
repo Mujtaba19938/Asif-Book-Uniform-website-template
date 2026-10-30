@@ -65,6 +65,28 @@
             }
         }
 
+        /* Hero Section Containment (Prevents Duplicate Wrapped Slides on Desktop) */
+        .bwgb-hero-carousel-1 {
+            overflow: hidden !important;
+        }
+        .bwgb-hero-carousel-1 .slick-track {
+            width: 100% !important;
+            transform: none !important;
+        }
+        .bwgb-hero-carousel-1 .slick-slide:not(.slick-active) {
+            display: none !important;
+        }
+        .bwgb-hero-carousel-1 .slick-slide.slick-active {
+            display: block !important;
+            width: 100% !important;
+            float: none !important;
+        }
+        .bwgb-hero-carousel-1 [data-scs-animation-in],
+        .bwgb-hero-carousel-1 .animated {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
         /* Mobile Hero Section Responsiveness */
         @media (max-width: 991.98px) {
             .bwgb-hero-carousel-1 {
@@ -659,7 +681,7 @@
                                     data-pagi-classes="text-center u-slick__pagination position-absolute right-0 left-0 mb-n8 mb-lg-4 bottom-0">
                                     <div class="slick-list draggable">
                                         <div class="slick-track"
-                                            style="opacity: 1; width: 5600px; transform: translate3d(0px, 0px, 0px);">
+                                            style="opacity: 1;">
                                             <div class="js-slide slick-slide slick-current slick-active"
                                                 data-slick-index="0" aria-hidden="false"
                                                  tabindex="0" role="tabpanel"
