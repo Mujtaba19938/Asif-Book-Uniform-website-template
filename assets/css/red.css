@@ -1,0 +1,160 @@
+/**
+ * Pink color styles
+ */
+.vertical-menu .dropdown-toggle:hover,
+.vertical-menu .dropdown-toggle.active,
+.select-hover:hover,
+.text-primary,
+.single-product .summary .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a,
+.single-product .summary .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a,
+.has-primary-color {
+  color: #f75454 !important;
+}
+
+a,
+footer .bootstrap-select .dropdown-menu .dropdown-item:hover,
+.topbar .dropdown-menu .dropdown-item:hover,
+.list-group .active > .list-group-item,
+.list-group-flush .list-group-item.active,
+.shop_table.cart tbody .product-name a:not(.d-block):hover,
+.h-primary:hover,
+.widget-content > ul a:hover,
+.widget-content > ul a:focus,
+footer .widget > ul a:hover,
+footer .widget > ul a:focus,
+.blog-sidebar .widget > ul a:hover,
+.blog-sidebar .widget > ul a:focus,
+.widget-area .widget > ul a:hover,
+.widget-area .widget > ul a:focus,
+.btn-outline-primary,
+.single-product .related.products .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a,
+.single-product .related.products .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a,
+.widget_nav_menu .menu a:hover,
+.sub-menu a:hover,
+.widget_nav_menu .menu a:focus,
+.sub-menu a:focus,
+.widget-content > ul a:hover,
+footer .widget > ul a:hover,
+.blog-sidebar .widget > ul a:hover,
+.widget-area .widget > ul a:hover,
+.widget-content > ul a:focus,
+footer .widget > ul a:focus,
+.blog-sidebar .widget > ul a:focus,
+.widget-area .widget > ul a:focus,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:not(:hover),
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:not(:hover),
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:not(:hover),
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:not(:hover),
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:not(:hover),
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:not(:hover) {
+  color: #f75454;
+}
+
+a:hover {
+  color: darken #f75454, 15%;
+}
+
+.add-to-compare-link:hover,
+.add-to-compare-link:focus,
+.sidebar .widget.widget_rating_filter .widget-content ul li.chosen a:before,
+.btn-outline-primary:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover,
+.single-product .related.products .yith-wcwl-add-to-wishlist a:hover,
+.single-product .upsells.products .yith-wcwl-add-to-wishlist a:hover,
+.progress-bar,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:hover,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:hover,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover {
+  background: #f75454;
+}
+
+.btn-primary {
+  background-color: #f75454;
+}
+
+.bg-primary,
+.has-primary-background-color {
+  background-color: #f75454 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: darken #f75454, 15%;
+  border-color: darken #f75454, 15%;
+}
+
+.add-to-compare-link:hover,
+.add-to-compare-link:focus,
+.sidebar .widget.widget_rating_filter .widget-content ul li.chosen a:before,
+.btn-outline-primary,
+.single-product .related.products .yith-wcwl-add-to-wishlist a,
+.single-product .upsells.products .yith-wcwl-add-to-wishlist a,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a,
+.btn-outline-primary:hover,
+.single-product .related.products .yith-wcwl-add-to-wishlist a:hover,
+.single-product .upsells.products .yith-wcwl-add-to-wishlist a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover,
+.btn-primary,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:hover,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:hover,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:hover,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:hover {
+  border-color: #f75454;
+}
+
+.products .product__space-primary:hover {
+  border-color: #f75454 !important;
+}
+
+.zeynep ul > li > a:not(.btn):hover {
+  background-color: rgba(247, 84, 84, 0.04);
+}
+
+.zeynep .submenu-header {
+  background-color: rgba(247, 84, 84, 0.1);
+}
+
+.progress {
+  background-color: lighten #f75454, 20%;
+}
+
+.fill-primary {
+  fill: #f75454;
+}
+
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:focus,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:focus,
+ul.products li.product .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:focus,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:focus,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:focus,
+.products .product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:focus,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-add-button a:focus,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse a:focus,
+.product__hover .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistexistsbrowse a:focus {
+  box-shadow: 0 0 0 0.2rem rgba(247, 84, 84, 0.5);
+}

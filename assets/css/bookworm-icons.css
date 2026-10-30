@@ -1,0 +1,877 @@
+@font-face {
+  font-family: "bookworm-icons";
+  src: url("./../fonts/bookworm-icons.ttf?v4xwry") format("truetype"), url("./../fonts/bookworm-icons.woff?v4xwry") format("woff"), url("./../fonts/bookworm-icons.svg?v4xwry#bookworm-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "star";
+  src: url("./../fonts/star.eot");
+  src: url("./../fonts/star.eot?#iefix") format("embedded-opentype"), url("./../fonts/star.woff") format("woff"), url("./../fonts/star.ttf") format("truetype"), url("./../fonts/star.svg#star") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^=bwi-],
+[class*=" bwi-"] {
+  display: inline-block;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "bookworm-icons" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+
+.bwi-add-circle::before {
+  content: "\e900";
+}
+
+.bwi-add-document::before {
+  content: "\e901";
+}
+
+.bwi-add-location::before {
+  content: "\e902";
+}
+
+.bwi-add::before {
+  content: "\e903";
+}
+
+.bwi-announcement::before {
+  content: "\e904";
+}
+
+.bwi-arrow-down-circle::before {
+  content: "\e905";
+}
+
+.bwi-arrow-down::before {
+  content: "\e906";
+}
+
+.bwi-arrow-left-circle::before {
+  content: "\e907";
+}
+
+.bwi-arrow-left::before {
+  content: "\e908";
+}
+
+.bwi-arrow-right-circle::before {
+  content: "\e909";
+}
+
+.bwi-arrow-right::before {
+  content: "\e90a";
+}
+
+.bwi-arrow-up-circle::before {
+  content: "\e90b";
+}
+
+.bwi-arrow-up::before {
+  content: "\e90c";
+}
+
+.bwi-arrows-horizontal::before {
+  content: "\e90d";
+}
+
+.bwi-arrows-vertical::before {
+  content: "\e90e";
+}
+
+.bwi-bag::before {
+  content: "\e90f";
+}
+
+.bwi-basket::before {
+  content: "\e910";
+}
+
+.bwi-behance::before {
+  content: "\e911";
+}
+
+.bwi-bell::before {
+  content: "\e912";
+}
+
+.bwi-bluetooth::before {
+  content: "\e913";
+}
+
+.bwi-book::before {
+  content: "\e914";
+}
+
+.bwi-bookmark::before {
+  content: "\e915";
+}
+
+.bwi-briefcase::before {
+  content: "\e916";
+}
+
+.bwi-calculator::before {
+  content: "\e917";
+}
+
+.bwi-camera::before {
+  content: "\e918";
+}
+
+.bwi-card::before {
+  content: "\e919";
+}
+
+.bwi-cart::before {
+  content: "\e91a";
+}
+
+.bwi-chat::before {
+  content: "\e91b";
+}
+
+.bwi-check-circle::before {
+  content: "\e91c";
+}
+
+.bwi-check::before {
+  content: "\e91d";
+}
+
+.bwi-clip::before {
+  content: "\e91e";
+}
+
+.bwi-close-circle::before {
+  content: "\e91f";
+}
+
+.bwi-close::before {
+  content: "\e920";
+}
+
+.bwi-cloud-check::before {
+  content: "\e921";
+}
+
+.bwi-cloud-download::before {
+  content: "\e922";
+}
+
+.bwi-cloud-upload::before {
+  content: "\e923";
+}
+
+.bwi-cloud::before {
+  content: "\e924";
+}
+
+.bwi-coin::before {
+  content: "\e925";
+}
+
+.bwi-coins::before {
+  content: "\e926";
+}
+
+.bwi-currency-exchange::before {
+  content: "\e927";
+}
+
+.bwi-delete-document::before {
+  content: "\e928";
+}
+
+.bwi-delete-folder::before {
+  content: "\e929";
+}
+
+.bwi-delete-location::before {
+  content: "\e92a";
+}
+
+.bwi-diamond::before {
+  content: "\e92b";
+}
+
+.bwi-document-alt::before {
+  content: "\e92c";
+}
+
+.bwi-document::before {
+  content: "\e92d";
+}
+
+.bwi-dollar-circle::before {
+  content: "\e92e";
+}
+
+.bwi-dollar::before {
+  content: "\e92f";
+}
+
+.bwi-dribbble::before {
+  content: "\e930";
+}
+
+.bwi-earphones::before {
+  content: "\e931";
+}
+
+.bwi-edit-alt::before {
+  content: "\e932";
+}
+
+.bwi-edit::before {
+  content: "\e933";
+}
+
+.bwi-euro-circle::before {
+  content: "\e934";
+}
+
+.bwi-euro::before {
+  content: "\e935";
+}
+
+.bwi-exit-full-screen::before {
+  content: "\e936";
+}
+
+.bwi-eye::before {
+  content: "\e937";
+}
+
+.bwi-facebook::before {
+  content: "\e938";
+}
+
+.bwi-filter-alt::before {
+  content: "\e939";
+}
+
+.bwi-filter::before {
+  content: "\e93a";
+}
+
+.bwi-flag::before {
+  content: "\e93b";
+}
+
+.bwi-folder::before {
+  content: "\e93c";
+}
+
+.bwi-forward::before {
+  content: "\e93d";
+}
+
+.bwi-full-screen::before {
+  content: "\e93e";
+}
+
+.bwi-gift::before {
+  content: "\e93f";
+}
+
+.bwi-globe::before {
+  content: "\e940";
+}
+
+.bwi-google::before {
+  content: "\e941";
+}
+
+.bwi-hangouts::before {
+  content: "\e942";
+}
+
+.bwi-heart-circle::before {
+  content: "\e943";
+}
+
+.bwi-heart::before {
+  content: "\e944";
+}
+
+.bwi-help::before {
+  content: "\e945";
+}
+
+.bwi-home::before {
+  content: "\e946";
+}
+
+.bwi-idea::before {
+  content: "\e947";
+}
+
+.bwi-image::before {
+  content: "\e948";
+}
+
+.bwi-increase::before {
+  content: "\e949";
+}
+
+.bwi-instagram::before {
+  content: "\e94a";
+}
+
+.bwi-joystick::before {
+  content: "\e94b";
+}
+
+.bwi-key::before {
+  content: "\e94c";
+}
+
+.bwi-lable::before {
+  content: "\e94d";
+}
+
+.bwi-laptop::before {
+  content: "\e94e";
+}
+
+.bwi-lightning::before {
+  content: "\e94f";
+}
+
+.bwi-link::before {
+  content: "\e950";
+}
+
+.bwi-linkedin::before {
+  content: "\e951";
+}
+
+.bwi-list::before {
+  content: "\e952";
+}
+
+.bwi-loading::before {
+  content: "\e953";
+}
+
+.bwi-location::before {
+  content: "\e954";
+}
+
+.bwi-locked::before {
+  content: "\e955";
+}
+
+.bwi-mail::before {
+  content: "\e956";
+}
+
+.bwi-map::before {
+  content: "\e957";
+}
+
+.bwi-menu-circle::before {
+  content: "\e958";
+}
+
+.bwi-menu::before {
+  content: "\e959";
+}
+
+.bwi-message::before {
+  content: "\e95a";
+}
+
+.bwi-messenger::before {
+  content: "\e95b";
+}
+
+.bwi-mobile::before {
+  content: "\e95c";
+}
+
+.bwi-money-bag::before {
+  content: "\e95d";
+}
+
+.bwi-money-box::before {
+  content: "\e95e";
+}
+
+.bwi-moon::before {
+  content: "\e95f";
+}
+
+.bwi-music::before {
+  content: "\e960";
+}
+
+.bwi-navigation::before {
+  content: "\e961";
+}
+
+.bwi-odnoklassniki::before {
+  content: "\e962";
+}
+
+.bwi-package::before {
+  content: "\e963";
+}
+
+.bwi-percent::before {
+  content: "\e964";
+}
+
+.bwi-phone::before {
+  content: "\e965";
+}
+
+.bwi-pinterest::before {
+  content: "\e966";
+}
+
+.bwi-plane::before {
+  content: "\e967";
+}
+
+.bwi-play-circle::before {
+  content: "\e968";
+}
+
+.bwi-play::before {
+  content: "\e969";
+}
+
+.bwi-reduce::before {
+  content: "\e96a";
+}
+
+.bwi-reload::before {
+  content: "\e96b";
+}
+
+.bwi-remove-document::before {
+  content: "\e96c";
+}
+
+.bwi-remove-folder::before {
+  content: "\e96d";
+}
+
+.bwi-reply::before {
+  content: "\e96e";
+}
+
+.bwi-rocket::before {
+  content: "\e96f";
+}
+
+.bwi-ruler::before {
+  content: "\e970";
+}
+
+.bwi-scroll::before {
+  content: "\e971";
+}
+
+.bwi-search::before {
+  content: "\e972";
+}
+
+.bwi-security-announcement::before {
+  content: "\e973";
+}
+
+.bwi-security-check::before {
+  content: "\e974";
+}
+
+.bwi-security-close::before {
+  content: "\e975";
+}
+
+.bwi-security-prohibition::before {
+  content: "\e976";
+}
+
+.bwi-send::before {
+  content: "\e977";
+}
+
+.bwi-server-alt::before {
+  content: "\e978";
+}
+
+.bwi-server::before {
+  content: "\e979";
+}
+
+.bwi-settings::before {
+  content: "\e97a";
+}
+
+.bwi-share-alt::before {
+  content: "\e97b";
+}
+
+.bwi-share::before {
+  content: "\e97c";
+}
+
+.bwi-skype::before {
+  content: "\e97d";
+}
+
+.bwi-smile::before {
+  content: "\e97e";
+}
+
+.bwi-star-filled::before {
+  content: "\e97f";
+}
+
+.bwi-star::before {
+  content: "\e980";
+}
+
+.bwi-sun::before {
+  content: "\e981";
+}
+
+.bwi-support::before {
+  content: "\e982";
+}
+
+.bwi-target::before {
+  content: "\e983";
+}
+
+.bwi-telegram::before {
+  content: "\e984";
+}
+
+.bwi-thumb-up::before {
+  content: "\e985";
+}
+
+.bwi-time::before {
+  content: "\e986";
+}
+
+.bwi-trash::before {
+  content: "\e987";
+}
+
+.bwi-tumblr::before {
+  content: "\e988";
+}
+
+.bwi-turn-off::before {
+  content: "\e989";
+}
+
+.bwi-twitter::before {
+  content: "\e98a";
+}
+
+.bwi-unlocked::before {
+  content: "\e98b";
+}
+
+.bwi-user-circle::before {
+  content: "\e98c";
+}
+
+.bwi-user::before {
+  content: "\e98d";
+}
+
+.bwi-viber::before {
+  content: "\e98e";
+}
+
+.bwi-video::before {
+  content: "\e98f";
+}
+
+.bwi-view-grid::before {
+  content: "\e990";
+}
+
+.bwi-view-list::before {
+  content: "\e991";
+}
+
+.bwi-vimeo::before {
+  content: "\e992";
+}
+
+.bwi-vk::before {
+  content: "\e993";
+}
+
+.bwi-wallet::before {
+  content: "\e994";
+}
+
+.bwi-watch::before {
+  content: "\e995";
+}
+
+.bwi-weather::before {
+  content: "\e996";
+}
+
+.bwi-wechat::before {
+  content: "\e997";
+}
+
+.bwi-youtube-outline::before {
+  content: "\e998";
+}
+
+.bwi-youtube::before {
+  content: "\e999";
+}
+
+.bwi-caret:before {
+  content: "\e99a";
+}
+
+.bwi-paypal:before {
+  content: "\e99b";
+}
+
+.bwi-delivery:before {
+  content: "\e99c";
+}
+
+.bwi-loudspeaker:before {
+  content: "\e99d";
+}
+
+.bwi-sign-in:before {
+  content: "\e99e";
+}
+
+.bwi-sign-out:before {
+  content: "\e99f";
+}
+
+.bwi-wash:before {
+  content: "\e9a0";
+}
+
+.bwi-bleach:before {
+  content: "\e9a1";
+}
+
+.bwi-hand-wash:before {
+  content: "\e9a2";
+}
+
+.bwi-ironing:before {
+  content: "\e9a3";
+}
+
+.bwi-dry-clean:before {
+  content: "\e9a4";
+}
+
+.bwi-add-user:before {
+  content: "\e9a5";
+}
+
+.bwi-compare:before {
+  content: "\e9a6";
+}
+
+.bwi-monitor:before {
+  content: "\e9a7";
+}
+
+.bwi-printer:before {
+  content: "\e9a8";
+}
+
+.bwi-speaker:before {
+  content: "\e9a9";
+}
+
+.bwi-download:before {
+  content: "\e9aa";
+}
+
+.bwi-upload:before {
+  content: "\e9ab";
+}
+
+.bwi-bluetooth-circle:before {
+  content: "\e9ac";
+}
+
+.bwi-battery:before {
+  content: "\e9ad";
+}
+
+.bwi-sound-waves:before {
+  content: "\e9ae";
+}
+
+.bwi-paprika:before {
+  content: "\e9af";
+}
+
+.bwi-chili:before {
+  content: "\e9b0";
+}
+
+.bwi-canned-food:before {
+  content: "\e9b1";
+}
+
+.bwi-toothbrush:before {
+  content: "\e9b2";
+}
+
+.bwi-pumpkin:before {
+  content: "\e9b3";
+}
+
+.bwi-orange:before {
+  content: "\e9b4";
+}
+
+.bwi-broccoli:before {
+  content: "\e9b5";
+}
+
+.bwi-sauce:before {
+  content: "\e9b6";
+}
+
+.bwi-soap:before {
+  content: "\e9b7";
+}
+
+.bwi-toilet-paper:before {
+  content: "\e9b8";
+}
+
+.bwi-lemon:before {
+  content: "\e9b9";
+}
+
+.bwi-bread:before {
+  content: "\e9ba";
+}
+
+.bwi-jam:before {
+  content: "\e9bb";
+}
+
+.bwi-fish:before {
+  content: "\e9bc";
+}
+
+.bwi-wine:before {
+  content: "\e9bd";
+}
+
+.bwi-truck:before {
+  content: "\e9be";
+}
+
+.bwi-tag:before {
+  content: "\e9bf";
+}
+
+.bwi-eggs:before {
+  content: "\e9c0";
+}
+
+.bwi-store:before {
+  content: "\e9c1";
+}
+
+.bwi-ham-leg:before {
+  content: "\e9c2";
+}
+
+.bwi-discount:before {
+  content: "\e9c3";
+}
+
+.bwi-open:before {
+  content: "\e9c4";
+}
+
+.bwi-juice:before {
+  content: "\e9c5";
+}
+
+.bwi-cheese:before {
+  content: "\e9c6";
+}
+
+.bwi-milk:before {
+  content: "\e9c7";
+}
+
+.bwi-cashier:before {
+  content: "\e9c8";
+}
+
+.bwi-avocado:before {
+  content: "\e9c9";
+}
+
+.bwi-apple:before {
+  content: "\e9ca";
+}
+
+.bwi-pizza:before {
+  content: "\e9cb";
+}
+
+.bwi-scale:before {
+  content: "\e9cc";
+}
+
+.bwi-ice-cream:before {
+  content: "\e9cd";
+}
+
+.bwi-water-bottle:before {
+  content: "\e9ce";
+}
+
+.bwi-carrot:before {
+  content: "\e9cf";
+}
+
+.bwi-basket-alt:before {
+  content: "\e9d0";
+}
+
+.bwi-corn:before {
+  content: "\e9d1";
+}
+
+.bwi-frozen:before {
+  content: "\e9d2";
+}
+
+.bwi-lollipop:before {
+  content: "\e9d3";
+}
+
+.bwi-pot:before {
+  content: "\e9d4";
+}
