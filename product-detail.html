@@ -74,11 +74,7 @@
                                                                                             </a>
                         </li>
                                                 <li class="nav-item d-block">
-                            <a id="sidebarNavToggler-my_cart" href="javascript:;" role="button" aria-controls="offcanvasCart" aria-haspopup="true" aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false" data-unfold-target="#offcanvasCart" data-unfold-type="css-animation" data-unfold-overlay="{
-                            &quot;className&quot;: &quot;u-sidebar-bg-overlay&quot;,
-                            &quot;background&quot;: &quot;rgba(0, 0, 0, .7)&quot;,
-                            &quot;animationSpeed&quot;: 500
-                        }" data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight" data-unfold-duration="500" class="d-block nav-link text-dark pr-0 position-relative target-of-invoker-has-unfolds">
+                            <a id="sidebarNavToggler-my_cart" href="cart.html" class="d-block nav-link text-dark pr-0 position-relative" title="View Cart &amp; Checkout">
                                 
                                     <span class="position-absolute width-16 height-16 rounded-circle d-flex align-items-center justify-content-center font-size-n9 text-white bg-dark right-0">
                                         <span class="cart-contents-count">
@@ -363,13 +359,63 @@
                                             </div>
 
                                             <!-- Add to Cart Form -->
+                                            <style>
+                                                .quantity-stepper {
+                                                    display: inline-flex !important;
+                                                    align-items: center !important;
+                                                    height: 52px !important;
+                                                    width: 140px !important;
+                                                    border: 1px solid #eae8e4 !important;
+                                                    border-radius: 4px !important;
+                                                    background: #ffffff !important;
+                                                    padding: 0 !important;
+                                                    box-sizing: border-box !important;
+                                                    overflow: hidden !important;
+                                                }
+                                                .quantity-stepper button {
+                                                    width: 42px !important;
+                                                    height: 100% !important;
+                                                    border: none !important;
+                                                    background: transparent !important;
+                                                    color: #161619 !important;
+                                                    display: flex !important;
+                                                    align-items: center !important;
+                                                    justify-content: center !important;
+                                                    cursor: pointer !important;
+                                                    padding: 0 !important;
+                                                    font-size: 14px !important;
+                                                    transition: background 0.2s ease !important;
+                                                }
+                                                .quantity-stepper button:hover {
+                                                    background: #f4f4f4 !important;
+                                                }
+                                                .quantity-stepper input#detail-quantity {
+                                                    width: 56px !important;
+                                                    height: 100% !important;
+                                                    border: none !important;
+                                                    background: transparent !important;
+                                                    text-align: center !important;
+                                                    font-size: 16px !important;
+                                                    font-weight: 600 !important;
+                                                    color: #161619 !important;
+                                                    padding: 0 !important;
+                                                    outline: none !important;
+                                                    box-shadow: none !important;
+                                                    -moz-appearance: textfield !important;
+                                                }
+                                                .quantity-stepper input#detail-quantity::-webkit-outer-spin-button,
+                                                .quantity-stepper input#detail-quantity::-webkit-inner-spin-button {
+                                                    -webkit-appearance: none !important;
+                                                    margin: 0 !important;
+                                                }
+                                            </style>
                                             <div class="cart d-flex align-items-center flex-wrap pt-3 border-top mb-4">
-                                                <div class="quantity mr-3 mb-3 d-flex align-items-center border rounded">
-                                                    <button type="button" class="btn btn-sm btn-link text-dark px-3 py-2 btn-qty-minus"><i class="fas fa-minus font-size-1"></i></button>
-                                                    <input type="number" id="detail-quantity" class="input-text qty text border-0 text-center font-weight-medium" style="width: 50px;" name="quantity" value="1" min="1" max="50">
-                                                    <button type="button" class="btn btn-sm btn-link text-dark px-3 py-2 btn-qty-plus"><i class="fas fa-plus font-size-1"></i></button>
+                                                <div class="quantity-stepper mr-4 mb-3">
+                                                    <button type="button" class="btn-qty-minus" aria-label="Decrease quantity"><i class="fas fa-minus font-size-1"></i></button>
+                                                    <input type="number" id="detail-quantity" name="quantity" value="1" min="1" max="50">
+                                                    <button type="button" class="btn-qty-plus" aria-label="Increase quantity"><i class="fas fa-plus font-size-1"></i></button>
                                                 </div>
-                                                <button type="button" id="btn-add-to-cart-detail" class="btn btn-dark text-white text-uppercase font-weight-medium px-5 py-3 mb-3 mr-3 d-inline-flex align-items-center">
+                                                <button type="button" id="btn-add-to-cart-detail" class="btn btn-dark text-white text-uppercase font-weight-medium px-5 mb-3 d-inline-flex align-items-center justify-content-center" style="height: 52px; min-width: 220px; border-radius: 4px;">
                                                     <span class="mr-2">Add to cart</span>
                                                     <i class="flaticon-icon-126515 font-size-4"></i>
                                                 </button>

@@ -2483,6 +2483,9 @@ var BOOKWORM_CART = {
     getTotalCount: function() {
         return this.items.reduce(function(sum, i) { return sum + i.quantity; }, 0);
     },
+    getCount: function() {
+        return this.getTotalCount();
+    },
     getSubtotal: function() {
         return this.items.reduce(function(sum, i) { return sum + (i.price * i.quantity); }, 0);
     },
@@ -2523,11 +2526,27 @@ var BOOKWORM_CART = {
         }
     },
     showAddedNotification: function(title) {
-        // Trigger Bookworm's unfold cart sidebar
-        var $cartToggler = $('#sidebarNavToggler-my_cart');
-        if ($cartToggler.length && typeof $.HSCore !== 'undefined' && $.HSCore.components && $.HSCore.components.HSUnfold) {
-            $cartToggler.trigger('click');
+        var $toast = $('#cart-toast-notification');
+        if (!$toast.length) {
+            $('body').append(
+                '<div id="cart-toast-notification" class="position-fixed shadow-lg bg-dark text-white p-3 rounded" style="top: 25px; right: 25px; z-index: 999999; max-width: 380px; display: none !important;">' +
+                    '<div class="d-flex align-items-center">' +
+                        '<i class="fas fa-check-circle text-success font-size-4 mr-3"></i>' +
+                        '<div class="flex-grow-1 pr-2 overflow-hidden">' +
+                            '<div class="font-size-2 font-weight-bold">Added to Cart!</div>' +
+                            '<div id="cart-toast-title" class="font-size-1 text-truncate" style="max-width: 190px;"></div>' +
+                        '</div>' +
+                        '<a href="cart.html" class="btn btn-sm btn-primary text-white font-size-1 px-3 py-2 flex-shrink-0">View Cart</a>' +
+                    '</div>' +
+                '</div>'
+            );
+            $toast = $('#cart-toast-notification');
         }
+        $('#cart-toast-title').text(title || 'Item');
+        $toast.stop(true, true).css('display', 'block').hide().fadeIn(250);
+        setTimeout(function() {
+            $toast.fadeOut(400);
+        }, 4000);
     }
 };
 
